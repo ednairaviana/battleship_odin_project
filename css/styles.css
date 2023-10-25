@@ -52,7 +52,7 @@ body {
 .wrapper-page {
   background-color: var(--bcg-color);
   height: calc(100vh - 60px);
-  width: calc(100vw - 60px);
+  width: calc(100vw - 120px);
   border-radius: 70px;
 }
 
@@ -79,6 +79,7 @@ main {
 .first-gb {
   border-radius: 10px;
   box-shadow: 0 0 15px var(--fst-main-color);
+  pointer-events: none;
 }
 
 .second-gb {

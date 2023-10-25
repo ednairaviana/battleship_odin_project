@@ -16,13 +16,17 @@
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body>
-    <header class="flex-center">
-      <h1 class="main-title">BATTLESHIP</h1>
-    </header>
-    <main class="flex-around">
-      <div class="game-board first-gb"></div>
-      <div class="game-board second-gb"></div>
-    </main>
+  <body class="flex-center">
+    <div class="wrapper-page">
+      <header class="flex-center">
+        <h1 class="main-title">BATTLESHIP</h1>
+      </header>
+
+      <main class="flex-around">
+        <div id="first" class="game-board first-gb"></div>
+        <div id="second" class="game-board second-gb"></div>
+      </main>
+    </div>
   </body>
+  <script src="./dist/main.js"></script>
 </html>
