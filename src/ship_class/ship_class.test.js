@@ -1,4 +1,4 @@
-const Ship = require("./ship_class");
+import { Ship } from "./ship_class";
 
 test("changes length with hits", () => {
   const testShip = new Ship(3);
