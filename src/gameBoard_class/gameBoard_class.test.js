@@ -64,5 +64,20 @@ test("board knows when all ships are sunk", () => {
 test("It's out over the board", () => {
   const board = new GameBoard();
 
-  expect(board.isOutOfTheBoard([8, 8], "horizontal", 6)).toBe(true)
+  expect(board.isOutOfTheBoard([8, 8], "horizontal", 6)).toBe(true);
+});
+
+test("The coordinate isn't empty", () => {
+  const board = new GameBoard();
+  board.placeShip([2, 4], "horizontal", 3);
+
+  expect(board.isEmptyCoordinate([2, 5])).toBe(false);
+});
+
+test("Knows if it's possible to place ship", () => {
+  const board = new GameBoard();
+  board.placeShip([2, 4], "horizontal", 3);
+
+  expect(board.isPossiblePlaceShip([2, 5], "horizontal", 3)).toBe(false);
+  expect(board.isPossiblePlaceShip([2, 7], "horizontal", 3)).toBe(true);
 });
