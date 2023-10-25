@@ -29,27 +29,18 @@ class GameBoard {
     return this.square[x][y] === 0 ? true : false;
   }
 
-  isOutOfTheBoard(coor, position, length) {
-    const x = coor[0];
-    const y = coor[1];
-
-    if (position === "vertical") {
-      return x + length < 10 ? false : true;
-    } else if (position === "horizontal") {
-      return y + length < 10 ? false : true;
-    }
-  }
-
   isPossiblePlaceShip(coor, position, length) {
     const x = coor[0];
     const y = coor[1];
 
     if (position === "vertical") {
       for (let i = 0; i < length; i++) {
+        if (x + length > 10) return false;
         if (this.square[x + i][y] !== 0) return false;
       }
     } else if (position === "horizontal") {
       for (let i = 0; i < length; i++) {
+        if (y + length > 10) return false;
         if (this.square[x][y + i] !== 0) return false;
       }
     }
