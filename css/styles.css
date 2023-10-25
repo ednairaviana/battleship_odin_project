@@ -1,0 +1,83 @@
+:root {
+  --bcg-color: #151515;
+  --fnt-color: #d6d6d6;
+
+  --fst-main-color: #a40001;
+  --fst-second-color: #8b0001;
+
+  --scd-main-color: #00229c;
+  --scd-second-color: #081c6d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--fnt-color);
+
+  background: #000;
+  background: linear-gradient(
+    100deg,
+    var(--fst-main-color),
+    var(--scd-main-color)
+  );
+}
+
+/* TYPOGRAPHY */
+
+.main-title {
+  font-family: "Concert One", sans-serif;
+  font-size: 60px;
+  letter-spacing: 5px;
+  font-weight: 600;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* COMPONENTS */
+
+header {
+  height: 15vh;
+  width: 100%;
+}
+
+main {
+  background-color: var(--bcg-color);
+  height: calc(85vh - 30px);
+  width: calc(100vw - 60px);
+
+  margin: 0 auto;
+  border-radius: 70px;
+
+  justify-content: space-between;
+}
+
+.game-board {
+  border: 2px solid white;
+
+  width: 400px;
+  height: 400px;
+}
+
+.first-gb {
+  border-radius: 10px;
+  box-shadow: 0 0 15px var(--fst-main-color);
+}
+
+.second-gb {
+  border-radius: 10px;
+  box-shadow: 0 0 15px var(--scd-main-color);
+}
