@@ -5,6 +5,27 @@ function renderSquares() {
   createSquares(domObj.board.second);
 }
 
+function createSquares(parent) {
+  let x = 0;
+  for (let y = 0; x < 10; y++) {
+    const square = document.createElement("div");
+
+    square.classList.add("square");
+    square.setAttribute("data-coordinate", `${x}, ${y}`);
+    parent.insertAdjacentElement("beforeend", square);
+
+    square.addEventListener("click", (e) => {
+      console.log(e.target);
+      attackAnimation(square);
+    });
+
+    if (y === 9) {
+      y = -1;
+      x++;
+    }
+  }
+}
+
 function attackAnimation(comp) {
   const mainColor = "#00229c";
   const bcgColor = "#151515";
@@ -23,18 +44,6 @@ function attackAnimation(comp) {
 
   function setBcgColor() {
     comp.style.backgroundColor = bcgColor;
-  }
-}
-
-function createSquares(parent) {
-  for (let i = 0; i < 100; i++) {
-    const square = document.createElement("div");
-    square.classList.add("square");
-    parent.insertAdjacentElement("beforeend", square);
-
-    square.addEventListener("click", () => {
-      attackAnimation(square);
-    });
   }
 }
 

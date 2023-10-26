@@ -41,6 +41,14 @@ body {
   justify-content: center;
 }
 
+.flex-center-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .flex-around {
   display: flex;
   align-items: center;
@@ -107,4 +115,47 @@ main {
 
 .square:hover {
   box-shadow: inset 0 0 5px #fff;
+}
+
+.vert-btn,
+.hori-btn {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.vert-btn {
+  border: 1px solid white;
+
+  width: 30px;
+  height: 80px;
+
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.hori-btn {
+  border: 1px solid white;
+
+  width: 80px;
+  height: 30px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100%;
+}
+
+.vert-btn:hover,
+.hori-btn:hover {
+  scale: 1.2;
+}
+
+.vert-btn:active,
+.hori-btn:active {
+  opacity: 0.6;
+}
+
+.sqr-btn {
+  border: 1px solid white;
+  background-color: var(--fst-main-color);
 }

@@ -1,5 +1,4 @@
 import { GameBoard } from "../gameBoard_class/gameBoard_class";
-import { AIPlayer } from "./ai_player";
 
 class Player {
   constructor(name) {
@@ -26,20 +25,4 @@ class Player {
   }
 }
 
-function newGame(name) {
-  const playerOne = new Player(name);
-  const playerTwo = new AIPlayer();
-
-  playerOne.enemy = playerTwo;
-  playerTwo.enemy = playerOne;
-
-  playerTwo.placeAllShips();
-
-  playerOne.attack([4, 5]);
-  playerTwo.attack();
-
-  console.log(playerOne.board.square);
-  console.log(playerTwo.board.square);
-}
-
-export { newGame };
+export { Player };
