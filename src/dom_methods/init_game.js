@@ -16,10 +16,7 @@ function newGame() {
   playerOne.placeAllShips();
   playerTwo.placeAllShips();
 
-  renderSquares(playerOne, domObj.board.first, "red");
-  renderSquares(playerTwo, domObj.board.second, "blue");
-
-  domObj.board.second.style.pointerEvents = "auto";
+  renderSquares();
 
   console.log(playerOne.board.square);
   console.log(playerTwo.board.square);

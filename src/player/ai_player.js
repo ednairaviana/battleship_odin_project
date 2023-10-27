@@ -28,6 +28,7 @@ class AIPlayer {
     });
 
     let coor = null;
+
     if (this.queue.length > 0) {
       coor = this.queue.shift();
     } else {
