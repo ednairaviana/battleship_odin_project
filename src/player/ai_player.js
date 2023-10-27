@@ -6,20 +6,68 @@ class AIPlayer {
     this.board = new GameBoard();
     this.enemy = null;
     this.turn = null;
+    this.queue = [];
+    this.allProbabilities = this.setAllProbabilities();
+  }
+
+  setAllProbabilities() {
+    const array = [];
+
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
+        array.push([x, y]);
+      }
+    }
+
+    return array;
   }
 
   attack() {
-    const x = Math.floor(Math.random() * 10);
-    const y = Math.floor(Math.random() * 10);
+    this.allProbabilities = this.allProbabilities.filter(function (element) {
+      return element !== undefined;
+    });
 
-    if (
-      this.enemy.board.isEmptyCoordinate([x, y]) ||
-      typeof this.enemy.board.square[x][y] === "object"
-    ) {
-      this.enemy.board.receiveAttack([x, y]);
+    let coor = null;
+    if (this.queue.length > 0) {
+      coor = this.queue.shift();
+      console.log(this.queue)
     } else {
-      this.attack();
+      const id = Math.floor(Math.random() * this.allProbabilities.length);
+      coor = this.allProbabilities[id];
+      delete this.allProbabilities[id];
+
+      console.log(id)
     }
+
+    const x = coor[0];
+    const y = coor[1];
+
+    console.log(coor);
+
+    if (typeof this.enemy.board.square[x][y] === "object") {
+      this.filterQueue(x, y);
+    }
+
+    this.enemy.board.receiveAttack([x, y]);
+    return [x, y];
+  }
+
+  filterQueue(x, y) {
+    const filter = [
+      [x - 1, y],
+      [x + 1, y],
+      [x, y - 1],
+      [x, y + 1],
+    ];
+
+    filter.forEach((el) => {
+      this.allProbabilities.forEach((prob, i) => {
+        if (el[0] === prob[0] && el[1] === prob[1]) {
+          this.queue.push([prob[0], prob[1]]);
+          delete this.allProbabilities[i];
+        }
+      });
+    });
   }
 
   placeAllShips() {
