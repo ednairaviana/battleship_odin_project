@@ -30,19 +30,14 @@ class AIPlayer {
     let coor = null;
     if (this.queue.length > 0) {
       coor = this.queue.shift();
-      console.log(this.queue)
     } else {
       const id = Math.floor(Math.random() * this.allProbabilities.length);
       coor = this.allProbabilities[id];
       delete this.allProbabilities[id];
-
-      console.log(id)
     }
 
     const x = coor[0];
     const y = coor[1];
-
-    console.log(coor);
 
     if (typeof this.enemy.board.square[x][y] === "object") {
       this.filterQueue(x, y);

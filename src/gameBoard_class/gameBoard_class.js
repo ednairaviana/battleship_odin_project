@@ -26,7 +26,11 @@ class GameBoard {
     const x = coor[0];
     const y = coor[1];
 
-    return this.square[x][y] === 0 ? true : false;
+    if (this.square[x][y] === 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   isPossiblePlaceShip(coor, position, length) {
@@ -73,8 +77,10 @@ class GameBoard {
     if (typeof this.square[x][y] === "object") {
       this.square[x][y].hit();
       this.square[x][y] = 2;
+      return true;
     } else {
       this.square[x][y] = 1;
+      return false;
     }
   }
 }
