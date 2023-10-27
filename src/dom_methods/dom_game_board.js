@@ -1,4 +1,5 @@
 import { domObj } from "./dom_obj";
+import { newGame } from "./init_game";
 
 function renderSquares() {
   domObj.plOne.board.square.forEach((line, x) => {
@@ -33,6 +34,7 @@ function createSquares(parent, x, y, isShip, color) {
   parent.insertAdjacentElement("beforeend", square);
 
   square.addEventListener("click", async () => {
+    checkGameOver("a", domObj.board.second);
     domObj.board.second.style.pointerEvents = "none";
 
     if (domObj.plTwo.board.receiveAttack([x, y])) {
@@ -58,11 +60,34 @@ const aiAttack = async () => {
   domObj.board.second.style.pointerEvents = "auto";
 };
 
+function createGameOverMessage(domBoard, text) {
+  const div = document.createElement("div");
+  div.classList.add("flex-center-column", "display-msg");
+
+  div.innerHTML = `<p>${text}!!!</p>`;
+
+  const btn = document.createElement("div");
+  btn.classList.add("btn-restart");
+  btn.innerText = "new game"
+  
+  div.insertAdjacentElement("beforeend", btn);
+
+  btn.addEventListener("click", ()=> {
+    clearBoard(domObj.board.first);
+    clearBoard(domObj.board.second);
+    newGame()
+  })
+
+  domBoard.appendChild(div);
+}
+
 function checkGameOver(playerObj, domBoard) {
-  if (playerObj.board.isAllSunk()) {
-    clearBoard(parent);
-    console.log("game over otário");
-  }
+  // if (playerObj.board.isAllSunk()) {
+  //   clearBoard(parent);
+  //   console.log("game over otário");
+  // }
+
+  createGameOverMessage(domBoard, "Perdeu otário");
 }
 
 function clearBoard(parent) {
