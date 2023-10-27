@@ -17,6 +17,7 @@
 
 body {
   color: var(--fnt-color);
+  font-family: "Concert One", sans-serif;
 
   background: #000;
   background: linear-gradient(
@@ -26,10 +27,9 @@ body {
   );
 }
 
-/* TYPOGRAPHY */
+/*  DEFAULT */
 
 .main-title {
-  font-family: "Concert One", sans-serif;
   font-size: 60px;
   letter-spacing: 5px;
   font-weight: 600;
@@ -74,6 +74,8 @@ main {
 }
 
 .game-board {
+  z-index: 1;
+  position: relative;
   border: 3px solid white;
   background-color: var(--bcg-color);
 
@@ -96,7 +98,7 @@ main {
 }
 
 .square {
-  border: 1px solid gray;
+  border: 1px solid rgb(137, 137, 137);
   border-left: none;
   border-top: none;
 
@@ -114,7 +116,7 @@ main {
 }
 
 .square:hover {
-  box-shadow: inset 0 0 5px #fff;
+  box-shadow: inset 0 0 5px rgb(137, 137, 137);
 }
 
 .vert-btn,
@@ -158,4 +160,38 @@ main {
 .sqr-btn {
   border: 1px solid white;
   background-color: var(--fst-main-color);
+}
+
+.display-msg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bcg-color);
+  border-radius: 10px;
+}
+
+.message {
+  font-size: 50px;
+}
+
+.btn-restart {
+  z-index: 99;
+  border: 3px solid var(--fnt-color);
+
+  border-radius: 20px;
+  padding: 15px 25px;
+  font-size: 25px;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-restart:hover {
+  color: var(--bcg-color);
+  border-color: var(--bcg-color);
+  background-color: var(--fnt-color);
+}
+
+.btn-restart:active {
+  opacity: 0.6;
 }

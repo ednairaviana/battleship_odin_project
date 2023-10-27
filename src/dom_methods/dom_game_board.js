@@ -58,8 +58,8 @@ const aiAttack = async () => {
   domObj.board.second.style.pointerEvents = "auto";
 };
 
-function gameOver(parent) {
-  if (playerSquare.board.isAllSunk()) {
+function checkGameOver(playerObj, domBoard) {
+  if (playerObj.board.isAllSunk()) {
     clearBoard(parent);
     console.log("game over otário");
   }
