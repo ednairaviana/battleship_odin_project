@@ -19,6 +19,8 @@ function renderSquares() {
   });
 
   domObj.board.first.style.pointerEvents = "none";
+  domObj.board.second.style.pointerEvents = "auto";
+  
   domObj.board.first.style.opacity = "1";
   domObj.board.second.style.opacity = "1";
 }
