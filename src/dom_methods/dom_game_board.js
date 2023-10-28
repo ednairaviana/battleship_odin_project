@@ -18,9 +18,9 @@ function renderSquares() {
     });
   });
 
-  domObj.board.first.pointerEvents = "none";
-  domObj.board.first.opacity = "1";
-  domObj.board.second.opacity = "1";
+  domObj.board.first.style.pointerEvents = "none";
+  domObj.board.first.style.opacity = "1";
+  domObj.board.second.style.opacity = "1";
 }
 
 function createSquares(parent, x, y, isShip, color) {
