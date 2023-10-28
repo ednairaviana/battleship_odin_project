@@ -59,8 +59,10 @@ class AIPlayer {
     filter.forEach((el) => {
       this.allProbabilities.forEach((prob, i) => {
         if (el[0] === prob[0] && el[1] === prob[1]) {
-          this.queue.push([prob[0], prob[1]]);
-          delete this.allProbabilities[i];
+          if (typeof this.enemy.board.square[prob[0]][prob[1]] === "object") {
+            this.queue.unshift([prob[0], prob[1]]);
+            delete this.allProbabilities[i];
+          }
         }
       });
     });
