@@ -17,9 +17,6 @@ function newGame() {
   playerTwo.placeAllShips();
 
   renderSquares();
-
-  console.log(playerOne.board.square);
-  console.log(playerTwo.board.square);
 }
 
 export { newGame };
