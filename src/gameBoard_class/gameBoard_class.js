@@ -41,11 +41,35 @@ class GameBoard {
       for (let i = 0; i < length; i++) {
         if (x + length > 10) return false;
         if (this.square[x + i][y] !== 0) return false;
+        if (!this.filterCoor(x + i, y)) return false;
       }
     } else if (position === "horizontal") {
       for (let i = 0; i < length; i++) {
         if (y + length > 10) return false;
         if (this.square[x][y + i] !== 0) return false;
+        if (!this.filterCoor(x, y + i)) return false;
+      }
+    }
+
+    return true;
+  }
+
+  filterCoor(x, y) {
+    const filter = [
+      [x - 1, y],
+      [x + 1, y],
+      [x, y - 1],
+      [x, y + 1],
+    ];
+
+    for (let i = 0; i < filter.length; i++) {
+      const x = filter[i][0];
+      const y = filter[i][1];
+
+      if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+        if (this.square[x][y] !== 0 || typeof this.square[x][y] === "object") {
+          return false;
+        }
       }
     }
 
