@@ -49,23 +49,71 @@ class AIPlayer {
   }
 
   filterQueue(x, y) {
-    const filter = [
-      [x - 1, y],
-      [x + 1, y],
-      [x, y - 1],
-      [x, y + 1],
-    ];
+    this.isX(x, y);
+    this.isY(x, y);
+  }
 
-    filter.forEach((el) => {
+  isY(x, y) {
+    let boolean = false;
+    const yDirection = [];
+
+    if (this.checkValidity(x , y - 1)) yDirection.push([x, y - 1]);
+    if (this.checkValidity(x , y + 1)) yDirection.push([x, y + 1]);
+
+    yDirection.forEach((coor) => {
+      if (this.itHasShip(coor[0], coor[1])) {
+        boolean = true;
+      }
+    });
+
+    if (boolean === true) {
+      this.enqueue(yDirection);
+    }
+  }
+
+  isX(x, y) {
+    let boolean = false;
+    const xDirection = [];
+
+    if (this.checkValidity(x - 1, y)) xDirection.push([x - 1, y]);
+    if (this.checkValidity(x + 1, y)) xDirection.push([x + 1, y]);
+
+    xDirection.forEach((coor) => {
+      if (this.itHasShip(coor[0], coor[1])) {
+        boolean = true;
+      }
+    });
+
+    if (boolean === true) {
+      this.enqueue(xDirection);
+    }
+  }
+
+  enqueue(arrayProbs) {
+    arrayProbs.forEach((el) => {
       this.allProbabilities.forEach((prob, i) => {
         if (el[0] === prob[0] && el[1] === prob[1]) {
-          if (typeof this.enemy.board.square[prob[0]][prob[1]] === "object") {
-            this.queue.unshift([prob[0], prob[1]]);
-            delete this.allProbabilities[i];
-          }
+          this.queue.push([prob[0], prob[1]]);
+          delete this.allProbabilities[i];
         }
       });
     });
+  }
+
+  itHasShip(x, y) {
+    if (typeof this.enemy.board.square[x][y] === "object") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkValidity(x, y) {
+    if (x >= 0 && x <= 9 && y >= 0 && y <= 9) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   placeAllShips() {
