@@ -20,7 +20,7 @@ function renderSquares() {
 
   domObj.board.first.style.pointerEvents = "none";
   domObj.board.second.style.pointerEvents = "auto";
-  
+
   domObj.board.first.style.opacity = "1";
   domObj.board.second.style.opacity = "1";
 }
@@ -71,8 +71,20 @@ const aiAttack = async () => {
 
   if (domObj.plOne.board.isAllSunk()) {
     createGameOverMessage(domObj.board.first, domObj.board.second, "YOU LOSE!");
+    renderMissingShips();
   }
 };
+
+function renderMissingShips() {
+  domObj.plTwo.board.square.forEach((line, x) => {
+    line.forEach((column, y) => {
+      if (typeof column === "object") {
+        const id = parseInt(`${x}${y}`);
+        domObj.board.second.childNodes[id].style.backgroundColor = "gray";
+      }
+    });
+  });
+}
 
 function createGameOverMessage(winBoard, loseBoard, text) {
   loseBoard.style.opacity = "0.2";
