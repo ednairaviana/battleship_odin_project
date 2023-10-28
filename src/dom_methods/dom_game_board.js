@@ -19,6 +19,8 @@ function renderSquares() {
   });
 
   domObj.board.first.pointerEvents = "none";
+  domObj.board.first.opacity = "1";
+  domObj.board.second.opacity = "1";
 }
 
 function createSquares(parent, x, y, isShip, color) {
@@ -34,7 +36,6 @@ function createSquares(parent, x, y, isShip, color) {
   parent.insertAdjacentElement("beforeend", square);
 
   square.addEventListener("click", async () => {
-    checkGameOver("a", domObj.board.second);
     domObj.board.second.style.pointerEvents = "none";
 
     if (domObj.plTwo.board.receiveAttack([x, y])) {
@@ -43,7 +44,16 @@ function createSquares(parent, x, y, isShip, color) {
       await attackAnimation(square, "#000");
     }
 
-    aiAttack();
+    if (domObj.plTwo.board.isAllSunk()) {
+      createGameOverMessage(
+        domObj.board.second,
+        domObj.board.first,
+        "YOU WIN!"
+      );
+    } else {
+      aiAttack();
+      domObj.board.second.style.pointerEvents = "auto";
+    }
   });
 }
 
@@ -57,10 +67,15 @@ const aiAttack = async () => {
     await attackAnimation(domObj.board.first.childNodes[id], "gray");
   }
 
-  domObj.board.second.style.pointerEvents = "auto";
+  if (domObj.plOne.board.isAllSunk()) {
+    createGameOverMessage(domObj.board.first, domObj.board.second, "YOU LOSE!");
+  }
 };
 
-function createGameOverMessage(domBoard, text) {
+function createGameOverMessage(winBoard, loseBoard, text) {
+  loseBoard.style.opacity = "0.2";
+  loseBoard.style.pointerEvents = "none";
+
   const div = document.createElement("div");
   div.classList.add("flex-center-column", "display-msg");
 
@@ -68,26 +83,18 @@ function createGameOverMessage(domBoard, text) {
 
   const btn = document.createElement("div");
   btn.classList.add("btn-restart");
-  btn.innerText = "new game"
-  
+  btn.innerText = "NEW GAME";
+
   div.insertAdjacentElement("beforeend", btn);
 
-  btn.addEventListener("click", ()=> {
+  btn.addEventListener("click", () => {
     clearBoard(domObj.board.first);
     clearBoard(domObj.board.second);
-    newGame()
-  })
+    newGame();
+  });
 
-  domBoard.appendChild(div);
-}
-
-function checkGameOver(playerObj, domBoard) {
-  // if (playerObj.board.isAllSunk()) {
-  //   clearBoard(parent);
-  //   console.log("game over otário");
-  // }
-
-  createGameOverMessage(domBoard, "Perdeu otário");
+  winBoard.appendChild(div);
+  winBoard.style.pointerEvents = "auto";
 }
 
 function clearBoard(parent) {
@@ -102,17 +109,6 @@ const attackAnimation = async (comp, color) => {
   const bcgColor = "#151515";
   comp.style.pointerEvents = "none";
 
-  setColor("gray");
-
-  await sleep(200);
-  setColor(bcgColor);
-
-  await sleep(200);
-  setColor("gray");
-
-  await sleep(200);
-  setColor(bcgColor);
-
   await sleep(100);
   setColor("gray");
 
@@ -122,8 +118,10 @@ const attackAnimation = async (comp, color) => {
   await sleep(100);
   setColor("gray");
 
-  await sleep(300);
+  await sleep(100);
   setColor(mainColor);
+
+  await sleep(500);
 
   function setColor(color) {
     comp.style.backgroundColor = color;
